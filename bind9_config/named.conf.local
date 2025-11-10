@@ -1,0 +1,10 @@
+// Minhas zonas para AngelCorp
+zone "angelcorp.com.br" {
+    type master;
+    file "/etc/bind/db.angelcorp.com.br";
+};
+
+zone "0.0.10.in-addr.arpa" {
+    type master;
+    file "/etc/bind/db.10.0.0";
+};
