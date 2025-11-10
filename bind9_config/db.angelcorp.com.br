@@ -1,0 +1,24 @@
+$TTL 86400
+@ IN SOA ns.angelcorp.com.br. admin.angelcorp.com.br. (
+    20251131001 ; Serial (YYYYMMDDNN)
+    3600 ; Refresh (1 hora)
+    900 ; Retry (15 minutos)
+    604800 ; Expire (1 semana)
+    86400 ) ; Negative Cache TTL (1 dia)
+
+@ IN NS ns.angelcorp.com.br.
+@ IN NS ns2.angelcorp.com.br.
+
+ns          IN A 10.0.0.1
+ns2         IN A 10.0.0.1
+www         IN A 10.0.0.2
+mail        IN A 10.0.0.3
+intranet    IN A 10.0.0.4
+
+ns          IN AAAA 2001:db8:cafe::1
+ns2         IN AAAA 2001:db8:cafe::1
+www         IN AAAA 2001:db8:cafe::2
+mail        IN AAAA 2001:db8:cafe::3
+intranet    IN AAAA 2001:db8:cafe::4
+
+@ IN MX 10 mail.angelcorp.com.br.
