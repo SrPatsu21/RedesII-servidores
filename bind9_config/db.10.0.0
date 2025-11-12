@@ -1,0 +1,15 @@
+$TTL 86400
+@ IN SOA ns.angelcorp.com.br. admin.angelcorp.com.br. (
+    2024103001 ; Serial (YYYYMMDDNN)
+    3600 ; Refresh (1 hora)
+    900 ; Retry (15 minutos)
+    604800 ; Expire (1 semana)
+    86400 ) ; Negative Cache TTL (1 dia)
+
+@ IN NS ns.angelcorp.com.br.
+@ IN NS ns2.angelcorp.com.br.
+
+1       IN PTR ns.angelcorp.com.br.
+2       IN PTR www.angelcorp.com.br.
+3       IN PTR mail.angelcorp.com.br.
+4       IN PTR intranet.angelcorp.com.br.

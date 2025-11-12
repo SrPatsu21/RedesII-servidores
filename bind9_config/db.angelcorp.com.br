@@ -22,3 +22,7 @@ mail        IN AAAA 2001:db8:cafe::3
 intranet    IN AAAA 2001:db8:cafe::4
 
 @ IN MX 10 mail.angelcorp.com.br.
+
+ftp         IN CNAME www.angelcorp.com.br.
+
+@ IN TXT "v=spf1 ip4:10.0.0.3 include:_spf.google.com ~all"
