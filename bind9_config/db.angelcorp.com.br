@@ -1,6 +1,6 @@
 $TTL 86400
 @ IN SOA ns.angelcorp.com.br. admin.angelcorp.com.br. (
-    20251131001 ; Serial (YYYYMMDDNN)
+    2025111201 ; Serial (YYYYMMDDNN)
     3600 ; Refresh (1 hora)
     900 ; Retry (15 minutos)
     604800 ; Expire (1 semana)
