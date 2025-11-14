@@ -1,21 +1,44 @@
 services:
-    bind9:
-        image: ubuntu/bind9:edge
-        container_name: bind9-container
-        restart: unless-stopped
-        env_file:
-          - .env
-        environment:
-          - TZ=UTC
-        volumes:
-          - ./bind9_config:/etc/bind
-        ports:
-          - "${BIND9_PORT}:53/tcp"
-          - "${BIND9_PORT}:53/udp"
-        networks:
-          - internal-bind
+  bind9:
+    image: ubuntu/bind9:edge
+    container_name: bind9-container
+    restart: unless-stopped
+    env_file:
+      - .env
+    environment:
+      - TZ=UTC
+    volumes:
+      - ./bind9_config:/etc/bind
+    ports:
+      - "${BIND9_PORT}:53/tcp"
+      - "${BIND9_PORT}:53/udp"
+    networks:
+      internal-bind:
+        ipv4_address: 172.20.0.2
+
+  bind9slave:
+    image: ubuntu/bind9:edge
+    container_name: bind9slave-container
+    restart: unless-stopped
+    env_file:
+      - .env
+    environment:
+      - TZ=UTC
+    volumes:
+      - ./bind9slave_config:/etc/bind
+    ports:
+      - "${BIND9SLAVE_PORT}:53/tcp"
+      - "${BIND9SLAVE_PORT}:53/udp"
+    networks:
+      internal-bind:
+        ipv4_address: 172.20.0.3
 
 networks:
-    internal-bind:
-        name: internal-bind
-        driver: bridge
+  internal-bind:
+    name: internal-bind
+    driver: bridge
+    ipam:
+      config:
+        - subnet: 172.20.0.0/25
+          gateway: 172.20.0.1
+
