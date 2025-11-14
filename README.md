@@ -17,5 +17,6 @@ docker compose up -d
 - test exemple
 
 ```shell
-dig @127.0.0.1 -p 30053 www.example.local
+dig @127.20.0.2 A www.angelcorp.com.br
+dig @127.20.0.3 -p 300153 www.angelcorp.com.br
 ```
