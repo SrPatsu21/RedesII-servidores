@@ -33,6 +33,30 @@ services:
       internal-bind:
         ipv4_address: 10.0.0.3
 
+  nginx:
+    image: nginx:mainline-alpine-perl
+    container_name: nginx-container
+    restart: unless-stopped
+    env_file:
+      - .env
+    environment:
+      DB_SQLITE_FILE: "/data/database.sqlite"
+    volumes:
+      - ./nginx/data:/data
+      - ./nginx/letsencrypt:/etc/letsencrypt
+      - ./nginx/custom:/etc/nginx/templates
+      - ./nginx/conf.d:/etc/nginx/conf.d
+      - ./nginx/html:/etc/nginx/html
+      - ./nginx/ssl:/etc/nginx/ssl
+      - ./nginx/logs:/var/log/nginx
+    ports:
+      - "${NGINX_HTTP}:80"
+      - "${NGINX_HTTPS}:443"
+      - "${NGINX_NOPR}:8080"
+    networks:
+      internal-bind:
+        ipv4_address: 10.0.0.4
+
 networks:
   internal-bind:
     name: internal-bind

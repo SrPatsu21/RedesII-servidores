@@ -22,5 +22,4 @@ dig @10.0.0.2 A www.angelcorp.com.br
 dig @10.0.0.3 A www.angelcorp.com.br
 dig @10.0.0.3 www.angelcorp.com.br
 dig @10.0.0.3 google.com
-
 ```
