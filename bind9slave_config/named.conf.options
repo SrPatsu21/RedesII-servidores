@@ -3,7 +3,9 @@ options {
     listen-on-v6 { any; }; // ipv6 lintining interface
     listen-on { any; }; // ipv4 lintining interface
     recursion yes; // ask to recursive name solve
+    allow-recursion { localnets; }; // who can ask for a recursion
     allow-query { localnets; }; // who can consult { localnets; }; { 10.0.0.0/24; }; { any; };
+    allow-query-cache { localnets; }; // who can use chash query
     forwarders {
         8.8.8.8;
         1.1.1.1;

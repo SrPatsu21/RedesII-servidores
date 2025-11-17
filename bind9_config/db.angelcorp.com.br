@@ -9,24 +9,24 @@ $TTL 86400
 @ IN NS ns.angelcorp.com.br.
 @ IN NS ns2.angelcorp.com.br.
 
-ns          IN A 10.0.0.1
-ns2         IN A 10.0.0.2
-www         IN A 10.0.0.3
-mail        IN A 10.0.0.4
-intranet    IN A 10.0.0.5
-sip         IN A 10.0.0.6
+ns          IN A 10.0.0.2
+ns2         IN A 10.0.0.3
+www         IN A 10.0.0.4
+mail        IN A 10.0.0.5
+intranet    IN A 10.0.0.6
+sip         IN A 10.0.0.7
 
-ns          IN AAAA 2001:db8:cafe::1
-ns2         IN AAAA 2001:db8:cafe::2
-www         IN AAAA 2001:db8:cafe::3
-mail        IN AAAA 2001:db8:cafe::4
-intranet    IN AAAA 2001:db8:cafe::5
-sip         IN AAAA 2001:db8:cafe::6
+ns          IN AAAA 2001:db8:cafe::2
+ns2         IN AAAA 2001:db8:cafe::3
+www         IN AAAA 2001:db8:cafe::4
+mail        IN AAAA 2001:db8:cafe::5
+intranet    IN AAAA 2001:db8:cafe::6
+sip         IN AAAA 2001:db8:cafe::7
 
 @ IN MX 10 mail.angelcorp.com.br.
 
 ftp         IN CNAME www.angelcorp.com.br.
 
-@ IN TXT "v=spf1 ip4:10.0.0.4 include:_spf.google.com ~all"
+@ IN TXT "v=spf1 ip4:10.0.0.5 include:_spf.google.com ~all"
 
 _sip._tcp.angelcorp.com.br. IN SRV 10 0 5060 sip.angelcorp.com.br.
