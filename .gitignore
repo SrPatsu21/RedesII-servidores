@@ -2,3 +2,4 @@
 
 nginx/logs
 nginx/letsencrypt
+nginx/ssl

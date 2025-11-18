@@ -23,3 +23,32 @@ dig @10.0.0.3 A www.angelcorp.com.br
 dig @10.0.0.3 www.angelcorp.com.br
 dig @10.0.0.3 google.com
 ```
+
+## Nginx
+
+generate cert
+
+```shell
+sudo chmod +x ./nginx/gen_cert.sh
+./nginx/gen_cert.sh
+```
+
+verify config
+
+```shell
+docker exec nginx-container nginx -t
+```
+
+pass
+
+```shell
+sudo apt update
+sudo apt install apache2-utils
+htpasswd -c nginx/conf.d/.htpasswd angelita
+```
+
+reload
+
+```shell
+docker exec nginx-container nginx -s reload
+```

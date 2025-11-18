@@ -44,7 +44,7 @@ services:
     volumes:
       - ./nginx/data:/data
       - ./nginx/letsencrypt:/etc/letsencrypt
-      - ./nginx/custom:/etc/nginx/templates
+      - ./nginx/templates:/etc/nginx/templates
       - ./nginx/conf.d:/etc/nginx/conf.d
       - ./nginx/html:/etc/nginx/html
       - ./nginx/ssl:/etc/nginx/ssl
