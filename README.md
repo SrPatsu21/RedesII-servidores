@@ -5,7 +5,8 @@
 - make readable
 
 ```shell
-sudo chown -R 100:101 bind9/
+sudo chown -R 100:101 bind9_config/
+sudo chown -R 100:101 bind9slave_config/
 ```
 
 - start it up:
