@@ -41,6 +41,9 @@ services:
       - .env
     environment:
       DB_SQLITE_FILE: "/data/database.sqlite"
+      IP_SERVIDOR: "${IP_SERVIDOR}"
+      FTP_USER: "${FTP_USER}"
+      FTP_PASS: "${FTP_PASS}"
     volumes:
       - ./nginx/data:/data
       - ./nginx/letsencrypt:/etc/letsencrypt
@@ -61,28 +64,12 @@ services:
         ipv4_address: 10.0.0.4
     command: >
       sh -c "
-        # 1) install alpine packages
         apk add --no-cache bash vsftpd openssl lftp shadow &&
-        #
-        #2) adapt the Debian script to Alpine 'on the fly'
-        cp /usr/local/bin/setup_ftps.sh /usr/local/bin/setup_ftps_alpine.sh &&
-        sed -i 's/apt update -y/echo \"skip apt update\"/g' /usr/local/bin/setup_ftps_alpine.sh &&
-        sed -i 's/apt install vsftpd -y/echo \"skip apt vsftpd\"/g' /usr/local/bin/setup_ftps_alpine.sh &&
-        sed -i 's/apt install lftp -y/echo \"skip apt lftp\"/g' /usr/local/bin/setup_ftps_alpine.sh &&
-        sed -i 's/systemctl restart vsftpd/echo \"skip systemctl restart\"/g' /usr/local/bin/setup_ftps_alpine.sh &&
-        sed -i 's/systemctl enable vsftpd/echo \"skip systemctl enable\"/g' /usr/local/bin/setup_ftps_alpine.sh &&
-        chmod +x /usr/local/bin/setup_ftps_alpine.sh &&
-        #
-        # 3) generates cert, write on /etc/vsftpd.conf and create FTP user
-        cd / && /usr/local/bin/setup_ftps_alpine.sh ||
-        echo \"setup_ftps.sh terminou com erro (ignorado para fins de demo)\" &&
-        #
-        # 4) starts vsftpd using generated config
+        chmod +x /usr/local/bin/setup_ftps.sh &&
+        /usr/local/bin/setup_ftps.sh &&
         vsftpd /etc/vsftpd.conf &
-        #5) Start nginx in the foreground to keep the container alive.
         nginx -g 'daemon off;'
       "
-
 
 networks:
   internal-bind:

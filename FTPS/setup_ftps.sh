@@ -7,8 +7,8 @@ PASV_MIN=40000
 PASV_MAX=40100
 
 IP_SERVIDOR="${IP_SERVIDOR:-192.168.0.100}"
-FTP_USER="${FTP_USER:-"alunoftp"}"
-FTP_PASS="${FTP_PASS:-"senha123"}"
+FTP_USER="${FTP_USER:-alunoftp}"
+FTP_PASS="${FTP_PASS:-senha123}"
 
 echo "[1/6] Creating SSL directory..."
 mkdir -p /etc/ssl/private
