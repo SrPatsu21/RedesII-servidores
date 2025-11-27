@@ -49,13 +49,40 @@ services:
       - ./nginx/html:/etc/nginx/html
       - ./nginx/ssl:/etc/nginx/ssl
       - ./nginx/logs:/var/log/nginx
+      - ./FTPS/setup_ftps.sh:/usr/local/bin/setup_ftps.sh:ro
     ports:
       - "${NGINX_HTTP}:80"
       - "${NGINX_HTTPS}:443"
       - "${NGINX_NOPR}:8080"
+      - "${FTP_PORT}:21"
+      - "${PASV_MIN}-${PASV_MAX}:40000-40100"
     networks:
       internal-bind:
         ipv4_address: 10.0.0.4
+    command: >
+      sh -c "
+        # 1) install alpine packages
+        apk add --no-cache bash vsftpd openssl lftp shadow &&
+        #
+        #2) adapt the Debian script to Alpine 'on the fly'
+        cp /usr/local/bin/setup_ftps.sh /usr/local/bin/setup_ftps_alpine.sh &&
+        sed -i 's/apt update -y/echo \"skip apt update\"/g' /usr/local/bin/setup_ftps_alpine.sh &&
+        sed -i 's/apt install vsftpd -y/echo \"skip apt vsftpd\"/g' /usr/local/bin/setup_ftps_alpine.sh &&
+        sed -i 's/apt install lftp -y/echo \"skip apt lftp\"/g' /usr/local/bin/setup_ftps_alpine.sh &&
+        sed -i 's/systemctl restart vsftpd/echo \"skip systemctl restart\"/g' /usr/local/bin/setup_ftps_alpine.sh &&
+        sed -i 's/systemctl enable vsftpd/echo \"skip systemctl enable\"/g' /usr/local/bin/setup_ftps_alpine.sh &&
+        chmod +x /usr/local/bin/setup_ftps_alpine.sh &&
+        #
+        # 3) generates cert, write on /etc/vsftpd.conf and create FTP user
+        cd / && /usr/local/bin/setup_ftps_alpine.sh ||
+        echo \"setup_ftps.sh terminou com erro (ignorado para fins de demo)\" &&
+        #
+        # 4) starts vsftpd using generated config
+        vsftpd /etc/vsftpd.conf &
+        #5) Start nginx in the foreground to keep the container alive.
+        nginx -g 'daemon off;'
+      "
+
 
 networks:
   internal-bind:
