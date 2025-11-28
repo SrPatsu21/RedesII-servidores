@@ -4,3 +4,5 @@ nginx/logs
 nginx/letsencrypt
 nginx/ssl
 FTPS/data
+FTPS/conf
+FTPS/ssl

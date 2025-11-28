@@ -39,7 +39,7 @@ dig @10.0.0.3 google.com
 
 ```shell
 sudo chmod +x ./nginx/gen_cert.sh
-./nginx/gen_cert.sh
+sudo ./nginx/gen_cert.sh
 ```
 
 - verify config
@@ -67,8 +67,14 @@ docker exec nginx-container nginx -s reload
     <http://docs.angelcorp.com.br/>
     <https://www.angelcorp.com.br/>
 
+## FTPS
 
-## FTPS 
+- setup script
+
+```shell
+sudo chmod +x ./FTPS/*.sh
+sudo ./FTPS/init-ssl.sh
+```
 
 ```conect
     lftp -u alunoftp,pass123 -p 21 10.0.0.5

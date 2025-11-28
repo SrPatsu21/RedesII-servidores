@@ -64,16 +64,20 @@ services:
     env_file:
       - .env
     environment:
-      FTP_USER: "${FTP_USER}" # root user
+      FTP_USER: "${FTP_USER}"
       FTP_PASS: "${FTP_PASS}"
-      PASV_ADDRESS: "10.0.0.5"
+
+      # Passive mode
+      PASV_ENABLE: "YES"
       PASV_MIN_PORT: "${PASV_MIN}"
       PASV_MAX_PORT: "${PASV_MAX}"
-      PASV_ENABLE: "YES"
+      PASV_ADDRESS: "${PASV_ADDRESS_EXTERNAL}"
       PASV_ADDR_RESOLVE: "NO"
-      LOG_STDOUT: "YES"
-      PASV_ADDRESS_EXTERNAL: "${PASV_ADDRESS_EXTERNAL:-10.0.0.5}"  # IP do servidor externo
+
+      # SSL / FTPS
       SSL_ENABLE: "YES"
+      SSL_TLSV1: "NO"
+      SSL_TLSV1_1: "NO"
       SSL_TLSV1_2: "YES"
       SSL_TLSV1_3: "YES"
       SSL_SSLV2: "NO"
@@ -83,8 +87,8 @@ services:
     volumes:
       - ./FTPS/data:/home/vsftpd
       - ./FTPS/log:/var/log/vsftpd
-      - ./FTPS/conf:/etc/vsftpd
-      - ./FTPS/init-ssl.sh:/docker-entrypoint-init.d/init-ssl.sh:ro
+      - ./FTPS/ssl/certs:/etc/ssl/certs
+      - ./FTPS/ssl/private:/etc/ssl/private
     ports:
       - "${FTP_PORT}:21"
       - "${PASV_MIN}-${PASV_MAX}:${PASV_MIN}-${PASV_MAX}"
