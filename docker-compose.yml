@@ -52,7 +52,7 @@ services:
       - ./nginx/html:/etc/nginx/html
       - ./nginx/ssl:/etc/nginx/ssl
       - ./nginx/logs:/var/log/nginx
-      - ./FTPS/setup_ftps.sh:/usr/local/bin/setup_ftps.sh:ro
+      - ./FTPS/setup_ftps.sh:/usr/local/bin/setup_ftps.sh
     ports:
       - "${NGINX_HTTP}:80"
       - "${NGINX_HTTPS}:443"
@@ -63,13 +63,15 @@ services:
       internal-bind:
         ipv4_address: 10.0.0.4
     command: >
-      sh -c "
+      /bin/sh -c "
         apk add --no-cache bash vsftpd openssl lftp shadow &&
         chmod +x /usr/local/bin/setup_ftps.sh &&
         /usr/local/bin/setup_ftps.sh &&
         vsftpd /etc/vsftpd.conf &
-        nginx -g 'daemon off;'
+        exec /docker-entrypoint.sh nginx -g 'daemon off;'
       "
+
+
 
 networks:
   internal-bind:
