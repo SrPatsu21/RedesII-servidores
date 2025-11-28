@@ -72,9 +72,19 @@ services:
       PASV_ENABLE: "YES"
       PASV_ADDR_RESOLVE: "NO"
       LOG_STDOUT: "YES"
+      PASV_ADDRESS_EXTERNAL: "${PASV_ADDRESS_EXTERNAL:-10.0.0.5}"  # IP do servidor externo
+      SSL_ENABLE: "YES"
+      SSL_TLSV1_2: "YES"
+      SSL_TLSV1_3: "YES"
+      SSL_SSLV2: "NO"
+      SSL_SSLV3: "NO"
+      FORCE_LOCAL_DATA_SSL: "YES"
+      FORCE_LOCAL_LOGINS_SSL: "YES"
     volumes:
       - ./FTPS/data:/home/vsftpd
       - ./FTPS/log:/var/log/vsftpd
+      - ./FTPS/conf:/etc/vsftpd
+      - ./FTPS/init-ssl.sh:/docker-entrypoint-init.d/init-ssl.sh:ro
     ports:
       - "${FTP_PORT}:21"
       - "${PASV_MIN}-${PASV_MAX}:${PASV_MIN}-${PASV_MAX}"

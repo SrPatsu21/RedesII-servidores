@@ -66,3 +66,10 @@ docker exec nginx-container nginx -s reload
     <http://reports.angelcorp.com.br/>
     <http://docs.angelcorp.com.br/>
     <https://www.angelcorp.com.br/>
+
+
+## FTPS 
+
+```conect
+    lftp -u alunoftp,pass123 -p 21 10.0.0.5
+```
