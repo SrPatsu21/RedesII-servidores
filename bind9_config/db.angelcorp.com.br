@@ -14,22 +14,24 @@ ns2         IN A 10.0.0.3
 www         IN A 10.0.0.4
 reports     IN A 10.0.0.4
 docs        IN A 10.0.0.4
-mail        IN A 10.0.0.5
-intranet    IN A 10.0.0.6
-sip         IN A 10.0.0.7
+ftp         IN A 10.0.0.5
+mail        IN A 10.0.0.6
+intranet    IN A 10.0.0.7
+sip         IN A 10.0.0.8
 
 ns          IN AAAA 2001:db8:cafe::2
 ns2         IN AAAA 2001:db8:cafe::3
 www         IN AAAA 2001:db8:cafe::4
 reports     IN AAAA 2001:db8:cafe::4
 docs        IN AAAA 2001:db8:cafe::4
-mail        IN AAAA 2001:db8:cafe::5
-intranet    IN AAAA 2001:db8:cafe::6
-sip         IN AAAA 2001:db8:cafe::7
+ftp         IN AAAA 2001:db8:cafe::5
+mail        IN AAAA 2001:db8:cafe::6
+intranet    IN AAAA 2001:db8:cafe::7
+sip         IN AAAA 2001:db8:cafe::8
 
 @ IN MX 10 mail.angelcorp.com.br.
 
-ftp         IN CNAME www.angelcorp.com.br.
+www2         IN CNAME www.angelcorp.com.br.
 
 @ IN TXT "v=spf1 ip4:10.0.0.5 include:_spf.google.com ~all"
 

@@ -41,9 +41,6 @@ services:
       - .env
     environment:
       DB_SQLITE_FILE: "/data/database.sqlite"
-      IP_SERVIDOR: "${IP_SERVIDOR}"
-      FTP_USER: "${FTP_USER}"
-      FTP_PASS: "${FTP_PASS}"
     volumes:
       - ./nginx/data:/data
       - ./nginx/letsencrypt:/etc/letsencrypt
@@ -52,26 +49,38 @@ services:
       - ./nginx/html:/etc/nginx/html
       - ./nginx/ssl:/etc/nginx/ssl
       - ./nginx/logs:/var/log/nginx
-      - ./FTPS/setup_ftps.sh:/usr/local/bin/setup_ftps.sh
     ports:
       - "${NGINX_HTTP}:80"
       - "${NGINX_HTTPS}:443"
       - "${NGINX_NOPR}:8080"
-      - "${FTP_PORT}:21"
-      - "${PASV_MIN}-${PASV_MAX}:40000-40100"
     networks:
       internal-bind:
         ipv4_address: 10.0.0.4
-    command: >
-      /bin/sh -c "
-        apk add --no-cache bash vsftpd openssl lftp shadow &&
-        chmod +x /usr/local/bin/setup_ftps.sh &&
-        /usr/local/bin/setup_ftps.sh &&
-        vsftpd /etc/vsftpd.conf &
-        exec /docker-entrypoint.sh nginx -g 'daemon off;'
-      "
 
-
+  ftp:
+    image: fauria/vsftpd
+    container_name: ftp-container
+    restart: unless-stopped
+    env_file:
+      - .env
+    environment:
+      FTP_USER: "${FTP_USER}" # root user
+      FTP_PASS: "${FTP_PASS}"
+      PASV_ADDRESS: "10.0.0.5"
+      PASV_MIN_PORT: "${PASV_MIN}"
+      PASV_MAX_PORT: "${PASV_MAX}"
+      PASV_ENABLE: "YES"
+      PASV_ADDR_RESOLVE: "NO"
+      LOG_STDOUT: "YES"
+    volumes:
+      - ./FTPS/data:/home/vsftpd
+      - ./FTPS/log:/var/log/vsftpd
+    ports:
+      - "${FTP_PORT}:21"
+      - "${PASV_MIN}-${PASV_MAX}:${PASV_MIN}-${PASV_MAX}"
+    networks:
+      internal-bind:
+        ipv4_address: 10.0.0.5
 
 networks:
   internal-bind:
