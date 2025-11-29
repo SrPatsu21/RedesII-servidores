@@ -98,7 +98,15 @@ bye
 EOF
 ```
 
-# ufw (exemplo)
-sudo ufw allow 50121/tcp
-sudo ufw allow 50120/tcp
-sudo ufw allow 50000:50003/tcp
+```shell
+lftp -p 21 10.0.0.5 << EOF
+set ftp:passive-mode true
+set ftp:prefer-epsv false
+set ftp:ssl-allow false
+set ftp:ssl-force false
+set ftp:ssl-protect-data false
+open -u alunoftp,pass123 10.0.0.5
+ls
+bye
+EOF
+```
