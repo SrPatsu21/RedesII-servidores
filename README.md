@@ -73,7 +73,8 @@ docker exec nginx-container nginx -s reload
 
 ```shell
 sudo chmod +x ./FTPS/*.sh
-sudo ./FTPS/init-ssl.sh
+ssh-keygen -f "$HOME/.ssh/known_hosts" -R "10.0.0.5"
+
 ```
 
 -conect
