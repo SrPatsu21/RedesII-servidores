@@ -58,7 +58,7 @@ services:
         ipv4_address: 10.0.0.4
 
   ftp:
-    image: fauria/vsftpd
+    image: garethflowers/ftp-server:edge
     container_name: ftp-container
     restart: unless-stopped
     env_file:
@@ -66,32 +66,16 @@ services:
     environment:
       FTP_USER: "${FTP_USER}"
       FTP_PASS: "${FTP_PASS}"
-
-      # Passive mode
-      PASV_ENABLE: "YES"
-      PASV_MIN_PORT: "${PASV_MIN}"
-      PASV_MAX_PORT: "${PASV_MAX}"
-      PASV_ADDRESS: "${PASV_ADDRESS_EXTERNAL}"
-      PASV_ADDR_RESOLVE: "NO"
-
-      # SSL / FTPS
-      SSL_ENABLE: "YES"
-      SSL_TLSV1: "NO"
-      SSL_TLSV1_1: "NO"
-      SSL_TLSV1_2: "YES"
-      SSL_TLSV1_3: "YES"
-      SSL_SSLV2: "NO"
-      SSL_SSLV3: "NO"
-      FORCE_LOCAL_DATA_SSL: "YES"
-      FORCE_LOCAL_LOGINS_SSL: "YES"
+      PUBLIC_IP: "0.0.0.0"
+    ports:
+      - "${FTP_PORT}:21/tcp"
+      - "${FTP_DPORT}:20/tcp"
+      - "${PASV_MIN}-${PASV_MAX}:${PASV_MIN}-${PASV_MAX}/tcp"
     volumes:
-      - ./FTPS/data:/home/vsftpd
-      - ./FTPS/log:/var/log/vsftpd
+      - ./FTPS/data:/home
       - ./FTPS/ssl/certs:/etc/ssl/certs
       - ./FTPS/ssl/private:/etc/ssl/private
-    ports:
-      - "${FTP_PORT}:21"
-      - "${PASV_MIN}-${PASV_MAX}:${PASV_MIN}-${PASV_MAX}"
+      - ./FTPS/conf:/etc/vsftpd
     networks:
       internal-bind:
         ipv4_address: 10.0.0.5

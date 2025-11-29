@@ -76,6 +76,28 @@ sudo chmod +x ./FTPS/*.sh
 sudo ./FTPS/init-ssl.sh
 ```
 
-```conect
+-conect
+
+```shell
     lftp -u alunoftp,pass123 -p 21 10.0.0.5
 ```
+
+-test
+
+```shell
+lftp -u alunoftp,pass123 -p 21 10.0.0.5 << 'EOF'
+set ftp:passive-mode false
+set ftp:prefer-epsv false
+set ftp:ssl-force false
+set ftp:ssl-allow false
+set cmd:trace true
+debug 3
+ls
+bye
+EOF
+```
+
+# ufw (exemplo)
+sudo ufw allow 50121/tcp
+sudo ufw allow 50120/tcp
+sudo ufw allow 50000:50003/tcp
