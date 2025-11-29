@@ -85,13 +85,27 @@ sudo ./FTPS/init-ssl.sh
 -test
 
 ```shell
-lftp -u alunoftp,pass123 -p 21 10.0.0.5 << 'EOF'
-set ftp:passive-mode false
+lftp -p 21 10.0.0.5 << EOF
+set ftp:passive-mode true
 set ftp:prefer-epsv false
-set ftp:ssl-force false
+set ftp:ssl-allow true
+set ftp:ssl-force true
+set ftp:ssl-protect-data true
+set ssl:verify-certificate false
+open -u alunoftp,pass123 10.0.0.5
+ls
+bye
+EOF
+```
+
+```shell
+lftp -p 21 10.0.0.5 << EOF
+set ftp:passive-mode true
+set ftp:prefer-epsv false
 set ftp:ssl-allow false
-set cmd:trace true
-debug 3
+set ftp:ssl-force false
+set ftp:ssl-protect-data false
+open -u alunoftp,pass123 10.0.0.5
 ls
 bye
 EOF

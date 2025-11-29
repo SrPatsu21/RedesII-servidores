@@ -58,7 +58,10 @@ services:
         ipv4_address: 10.0.0.4
 
   ftp:
-    image: garethflowers/ftp-server:edge
+    build:
+      context: .
+      dockerfile: Dockerfile.ftp
+    image: angelcorp/vsftpd-ftps
     container_name: ftp-container
     restart: unless-stopped
     env_file:
@@ -66,16 +69,18 @@ services:
     environment:
       FTP_USER: "${FTP_USER}"
       FTP_PASS: "${FTP_PASS}"
-      PUBLIC_IP: "0.0.0.0"
+      PASV_MIN: "${PASV_MIN}"
+      PASV_MAX: "${PASV_MAX}"
+      PASV_ADDRESS: "${IP_SERVIDOR}"
     ports:
       - "${FTP_PORT}:21/tcp"
       - "${FTP_DPORT}:20/tcp"
       - "${PASV_MIN}-${PASV_MAX}:${PASV_MIN}-${PASV_MAX}/tcp"
+
     volumes:
-      - ./FTPS/data:/home
+      - ./FTPS/data:/home/${FTP_USER}
       - ./FTPS/ssl/certs:/etc/ssl/certs
       - ./FTPS/ssl/private:/etc/ssl/private
-      - ./FTPS/conf:/etc/vsftpd
     networks:
       internal-bind:
         ipv4_address: 10.0.0.5

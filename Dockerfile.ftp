@@ -1,0 +1,13 @@
+FROM alpine:3.20
+
+RUN apk add --no-cache vsftpd openssl bash
+
+COPY FTPS/vsftpd.conf /etc/vsftpd/vsftpd.conf
+
+# Script
+COPY FTPS/entrypoint.sh /entrypoint.sh
+RUN chmod +x /entrypoint.sh
+
+EXPOSE 20 21 50000-50003
+
+CMD ["/entrypoint.sh"]
