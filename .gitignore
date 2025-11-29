@@ -6,3 +6,4 @@ nginx/ssl
 FTPS/data
 FTPS/conf
 FTPS/ssl
+FTPS/log
