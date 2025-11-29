@@ -1,13 +1,23 @@
 FROM alpine:3.20
 
-RUN apk add --no-cache vsftpd openssl bash
+# Instala o mínimo necessário para FTP **e** SSH
+RUN apk add --no-cache \
+    vsftpd \
+    openssl \
+    bash \
+    openssh-server \
+    openssh-keygen
 
+# Copia arquivo de configuração
 COPY FTPS/vsftpd.conf /etc/vsftpd/vsftpd.conf
 
-# Script
+# Copia entrypoint atualizado
 COPY FTPS/entrypoint.sh /entrypoint.sh
 RUN chmod +x /entrypoint.sh
 
-EXPOSE 20 21 50000-50003
+# Cria diretórios exigidos pelo SSH
+RUN mkdir -p /var/run/sshd
+
+EXPOSE 20 21 50000-50003 22
 
 CMD ["/entrypoint.sh"]

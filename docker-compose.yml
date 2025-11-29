@@ -73,6 +73,7 @@ services:
       PASV_MAX: "${PASV_MAX}"
       PASV_ADDRESS: "${IP_SERVIDOR}"
     ports:
+      - "${SSH_PORT}:22/tcp"
       - "${FTP_PORT}:21/tcp"
       - "${FTP_DPORT}:20/tcp"
       - "${PASV_MIN}-${PASV_MAX}:${PASV_MIN}-${PASV_MAX}/tcp"
