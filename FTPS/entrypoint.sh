@@ -8,8 +8,8 @@ PASV_MAX=${PASV_MAX:-50003}
 PASV_ADDRESS=${PASV_ADDRESS:-10.0.0.5}
 CERT_DIR="./FTPS/ssl/certs"
 KEY_DIR="./FTPS/ssl/private"
-CERT_FILE="$CERT_DIR/vsftpd.pem"
-KEY_FILE="$KEY_DIR/vsftpd.pem"
+CERT_FILE="/etc/ssl/certs/vsftpd.pem"
+KEY_FILE="/etc/ssl/private/vsftpd.pem"
 
 mkdir -p "$CERT_DIR" "$KEY_DIR"
 
@@ -36,5 +36,6 @@ chown -R "$FTP_USER":"$FTP_USER" /home/$FTP_USER
 sed -i "s/^pasv_min_port=.*/pasv_min_port=${PASV_MIN}/" /etc/vsftpd/vsftpd.conf
 sed -i "s/^pasv_max_port=.*/pasv_max_port=${PASV_MAX}/" /etc/vsftpd/vsftpd.conf
 sed -i "s/^pasv_address=.*/pasv_address=${PASV_ADDRESS}/" /etc/vsftpd/vsftpd.conf
+sed -i "s|^local_root=.*|local_root=/home/${FTP_USER}|" /etc/vsftpd/vsftpd.conf
 
 exec /usr/sbin/vsftpd /etc/vsftpd/vsftpd.conf
