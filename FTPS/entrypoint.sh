@@ -61,4 +61,4 @@ SSHD_PID=$!
 
 # Start vsftpd em foreground (substitui o processo atual)
 echo "Iniciando vsftpd..."
-exec /usr/sbin/vsftpd /etc/vsftpd/vsftpd.conf
+exec supervisord -n

@@ -1,10 +1,15 @@
 #!/bin/bash
+export SSH_ASKPASS=""
+export SSH_ASKPASS_REQUIRE="never"
+
 
 VM_USER="alunoftp"
 VM_IP="10.0.0.5"
 VM_SSH_PORT="22"
 NGINX_DIR="."
 LOCAL_DIR="."
+
+ssh-keyscan -p "$VM_SSH_PORT" 10.0.0.5 >> ~/.ssh/known_hosts
 
 # Enviar local → container
 LOCAL_FILE="scp_seguro.txt"

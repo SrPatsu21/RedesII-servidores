@@ -6,10 +6,12 @@ RUN apk add --no-cache \
     openssl \
     bash \
     openssh-server \
-    openssh-keygen
+    openssh-keygen \
+    supervisor
 
 # Copia arquivo de configuração
 COPY FTPS/vsftpd.conf /etc/vsftpd/vsftpd.conf
+COPY FTPS/supervisord.conf /etc/supervisord.conf
 
 # Copia entrypoint atualizado
 COPY FTPS/entrypoint.sh /entrypoint.sh
