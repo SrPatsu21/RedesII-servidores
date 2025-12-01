@@ -25,7 +25,6 @@ mail        IN AAAA 2001:db8:cafe::6
 intranet    IN AAAA 2001:db8:cafe::7
 sip         IN AAAA 2001:db8:cafe::8
 
-
 reports     IN CNAME www.angelcorp.com.br.
 docs        IN CNAME www.angelcorp.com.br.
 
