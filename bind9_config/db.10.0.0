@@ -12,8 +12,6 @@ $TTL 86400
 2       IN PTR ns.angelcorp.com.br.
 3       IN PTR ns2.angelcorp.com.br.
 4       IN PTR www.angelcorp.com.br.
-4       IN PTR docs.angelcorp.com.br.
-4       IN PTR reports.angelcorp.com.br.
 5       IN PTR mail.angelcorp.com.br.
 6       IN PTR intranet.angelcorp.com.br.
 7       IN PTR sip.angelcorp.com.br.
