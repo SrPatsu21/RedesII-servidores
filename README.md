@@ -23,6 +23,14 @@ docker exec bind9-container named-checkzone angelcorp.com.br /etc/bind/db.angelc
 docker restart bind9-container
 ```
 
+ou
+
+```shell
+docker exec bind9-container named-checkconf /etc/bind/named.conf
+docker exec bind9-container named-checkzone angelcorp.com.br /etc/bind/db.angelcorp.com.br
+docker exec bind9-container sh /etc/init.named restart
+```
+
 - test exemple
 
 ```shell
@@ -31,6 +39,12 @@ dig @10.0.0.2 A www.angelcorp.com.br
 dig @10.0.0.3 A www.angelcorp.com.br
 dig @10.0.0.3 www.angelcorp.com.br
 dig @10.0.0.3 google.com
+```
+
+- Remove cash
+
+```shell
+sudo resolvectl flush-caches
 ```
 
 ## Nginx
