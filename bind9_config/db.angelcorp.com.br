@@ -1,13 +1,13 @@
-$TTL 86400
+$TTL 86400 ; Cache (1 day)
 @ IN SOA ns.angelcorp.com.br. admin.angelcorp.com.br. (
     2025120101 ; Serial (YYYYMMDDNN)
-    3600 ; Refresh (1 hora)
-    900 ; Retry (15 minutos)
-    604800 ; Expire (1 semana)
-    86400 ) ; Negative Cache TTL (1 dia)
+    3600 ; Slave Refresh (1 hours)
+    900 ; Retry if fails (15 minutes)
+    604800 ; Slave Expire (1 week)
+    86400 ) ; Negative response Cache TTL (1 day)
 
-@ IN NS ns.angelcorp.com.br.
-@ IN NS ns2.angelcorp.com.br.
+@ IN NS ns.angelcorp.com.br. ; authorized server
+@ IN NS ns2.angelcorp.com.br. ; authorized server
 
 ns          IN A 10.0.0.2
 ns2         IN A 10.0.0.3
@@ -25,11 +25,12 @@ mail        IN AAAA 2001:db8:cafe::6
 intranet    IN AAAA 2001:db8:cafe::7
 sip         IN AAAA 2001:db8:cafe::8
 
+; aliases
 reports     IN CNAME www.angelcorp.com.br.
 docs        IN CNAME www.angelcorp.com.br.
 
-@ IN MX 10 mail.angelcorp.com.br.
+@ IN MX 10 mail.angelcorp.com.br. ; domain mail server
 
-@ IN TXT "v=spf1 ip4:10.0.0.5 include:_spf.google.com ~all"
+@ IN TXT "v=spf1 ip4:10.0.0.5 include:_spf.google.com ~all" ; mail config
 
-_sip._tcp.angelcorp.com.br. IN SRV 10 0 5060 sip.angelcorp.com.br.
+_sip._tcp.angelcorp.com.br. IN SRV 10 0 5060 sip.angelcorp.com.br. ; where the server is

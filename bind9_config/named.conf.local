@@ -1,13 +1,12 @@
-// Minhas zonas para AngelCorp
 zone "angelcorp.com.br" {
-    type master;
+    type master; //primary
     file "/etc/bind/db.angelcorp.com.br";
     allow-transfer { 10.0.0.3; }; //slave
     also-notify { 10.0.0.3; };
 };
 
 zone "0.0.10.in-addr.arpa" {
-    type master;
+    type master; //primary
     file "/etc/bind/db.10.0.0";
     allow-transfer { 10.0.0.3; }; //slave
     also-notify { 10.0.0.3; };

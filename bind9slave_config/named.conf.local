@@ -1,12 +1,12 @@
 // Minhas zonas para AngelCorp
 zone "angelcorp.com.br" {
     type slave;
-    masters { 10.0.0.2; };   // IP do master
+    masters { 10.0.0.2; };   // master IP
     file "/var/cache/bind/angelcorp.com.br.db";
 };
 
 zone "0.0.10.in-addr.arpa" {
     type slave;
-    masters { 10.0.0.2; };   // IP do master
+    masters { 10.0.0.2; };   // master IP
     file "/var/cache/bind/db.10.0.0";
 };
