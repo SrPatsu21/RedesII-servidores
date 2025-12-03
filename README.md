@@ -81,6 +81,10 @@ docker exec nginx-container nginx -s reload
     <http://docs.angelcorp.com.br/>
     <https://www.angelcorp.com.br/>
 
+```shell
+curl -k -v https://www.angelcorp.com.br/
+```
+
 ## FTPS
 
 - setup script
