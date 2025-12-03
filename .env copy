@@ -13,5 +13,3 @@ FTP_PORT=40413
 FTP_DPORT=40120
 PASV_MIN=40000
 PASV_MAX=40100
-
-DESTINATION="/home/alunoftp/nginx_angelcorp/html/www/"

@@ -129,3 +129,15 @@ ls
 bye
 EOF
 ```
+
+
+dig @127.0.0.1 -p 30053 www.angelcorp.com.br
+
+lftp -u alunoftp,pass123 -p 50121 localhost
+set ftp:passive-mode true
+set ftp:prefer-epsv false
+set ftp:ssl-force true
+set ftp:ssl-protect-data true
+set ssl:verify-certificate false
+ls
+bye
